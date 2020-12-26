@@ -32,6 +32,15 @@ void processInput(GLFWwindow *window,AbstractRegularShape &shape,int &index){
     if (isPressed(window,GLFW_KEY_Z)){
         shape.rotate(0,0,2);
     }
+    if (isPressed(window,GLFW_KEY_J)){
+        shape.rotate4D(0.1f,0,0);
+    }
+    if (isPressed(window,GLFW_KEY_K)){
+        shape.rotate4D(0,0.1f,0);
+    }
+    if (isPressed(window,GLFW_KEY_L)){
+        shape.rotate4D(0,0,0.1f);
+    }
     for (int i=0;i<6;i++){
         if (isPressed(window,GLFW_KEY_1+i)){
             index=i;

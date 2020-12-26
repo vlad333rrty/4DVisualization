@@ -3,10 +3,10 @@
 #include <algorithm>
 
 Tesseract::Tesseract(int edge_len) : AbstractRegularShape(edge_len) {
-    double half_len = edge_len / 2.;
     vertices.emplace_back(glm::vec4(0, 0, 0, 0));
     createFrame(vertices[0]);
-    TransformationUtils::setDefaultPosition(vertices,edges,half_len);
+    TransformationUtils::translate(vertices,edges,glm::vec4(-0.5));
+    TransformationUtils::scale(vertices,edges,edge_len/2.);
 }
 
 void Tesseract::createFrame(glm::vec4 vertex) {

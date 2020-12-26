@@ -10,11 +10,20 @@ void AbstractRegularShape::move(float x, float y, float z) {
     centre.z+=z;
 }
 
-void AbstractRegularShape::rotate(int x, int y, int z) {
+void AbstractRegularShape::rotate(float x, float y, float z) {
     angle_x+=x;
     angle_y+=y;
     angle_z+=z;
 }
+
+void AbstractRegularShape::rotate4D(float xw, float yw, float zw) {
+    angle_xw+=xw;
+    angle_yw+=yw;
+    angle_zw+=zw;
+}
+
+glm::vec4 rotatePoint4D(glm::vec4 &point, float xw, float yw, float zw);
+void renderEdgePoint(glm::vec4 &point, float angle_xw, float angle_yw, float angle_zw, float l);
 
 void AbstractRegularShape::draw() {
     glPushMatrix();
@@ -25,11 +34,22 @@ void AbstractRegularShape::draw() {
     glBegin(GL_LINES);
     glColor3d(0.3,0.6,1);
     for (auto &edge:edges){
-        glm::vec3 v=TransformationUtils::projectPointTo3D(edge.first,  1+edge_len/2.f);
-        glVertex3d(v.x,v.y,v.z);
-        v=TransformationUtils::projectPointTo3D(edge.second,  1+edge_len/2.f);
-        glVertex3d(v.x,v.y,v.z);
+        renderEdgePoint(edge.first, angle_xw, angle_yw, angle_zw, 1 + edge_len / 2.f);
+        renderEdgePoint(edge.second, angle_xw, angle_yw, angle_zw, 1 + edge_len / 2.f);
     }
     glEnd();
     glPopMatrix();
+}
+
+glm::vec4 rotatePoint4D(glm::vec4 &point, float xw, float yw, float zw){
+    auto rotated=TransformationUtils::rotateXW(point,xw);
+    rotated=TransformationUtils::rotateYW(rotated,yw);
+    rotated=TransformationUtils::rotateZW(rotated,zw);
+    return rotated;
+}
+
+void renderEdgePoint(glm::vec4 &point, float angle_xw, float angle_yw, float angle_zw, float l){
+    glm::vec4 rotatedPoint=rotatePoint4D(point,angle_xw,angle_yw,angle_zw);
+    glm::vec3 v=TransformationUtils::projectPointTo3D(rotatedPoint,  l);
+    glVertex3d(v.x,v.y,v.z);
 }

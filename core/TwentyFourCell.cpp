@@ -1,7 +1,5 @@
 #include "../shapes/TwentyFourCell.h"
 #include "../transforms/TransformationUtils.h"
-#include "../debug/DebugUtils.h"
-#include "../io/FileReadUtils.h"
 #include <algorithm>
 
 std::vector<glm::vec4> generateTesseract(std::vector<glm::vec4> &vertices, std::vector<std::pair<glm::vec4,glm::vec4>> &edges);
@@ -12,7 +10,8 @@ TwentyFourCell::TwentyFourCell(uint edge_len):AbstractRegularShape(edge_len) {
     generateTesseract(vertices, edges);
     createEdges(vertices,edges);
     addVertices(vertices);
-    TransformationUtils::scale(vertices,edges,edge_len/4.);
+
+    TransformationUtils::scale(vertices,edges,edge_len/5.);
 }
 
 void createEdges(std::vector<glm::vec4> &vertices,std::vector<std::pair<glm::vec4,glm::vec4>> &edges){

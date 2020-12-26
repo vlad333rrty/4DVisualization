@@ -17,5 +17,6 @@ Pentachoron::Pentachoron(int edge_len): AbstractRegularShape(edge_len, PENTACHOR
         }
     }
 
-    TransformationUtils::setDefaultPosition(vertices,edges,half_len);
+    TransformationUtils::translate(vertices,edges,glm::vec4(-0.5));
+    TransformationUtils::scale(vertices,edges,half_len);
 }

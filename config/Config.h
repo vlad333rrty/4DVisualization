@@ -3,7 +3,7 @@
 
 const int DEFAULT_WIDTH=800;
 const int DEFAULT_HEIGHT=800;
-const int DEFAULT_NEAR=800;
-const int DEFAULT_FAR=800;
+const int DEFAULT_NEAR=1000;
+const int DEFAULT_FAR=1000;
 
 #endif //INC_4DVISUALIZATION_CONFIG_H
