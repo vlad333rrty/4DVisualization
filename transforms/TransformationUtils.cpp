@@ -8,7 +8,7 @@ std::vector<float> TransformationUtils::perspectiveProjectionTo3D( float l, floa
     return {d,0,0,0,0,d,0,0,0,0,d,0,0,0,0,1};
 }
 
-glm::vec4 mulMatrixVec(std::vector<float> &matrix,glm::vec4 vec);
+glm::vec4 mulMatrixVec(std::vector<float> &matrix,glm::vec4 &vec);
 
 glm::vec3 TransformationUtils::projectPointTo3D(glm::vec4 &point,float l) {
     std::vector<float> matrix=TransformationUtils::perspectiveProjectionTo3D(l, point.w);
@@ -55,12 +55,11 @@ glm::vec4 TransformationUtils::rotateYW(glm::vec4 &point, float radians) {
 glm::vec4 TransformationUtils::rotateZW(glm::vec4 &point, float radians) {
     auto cosValue=std::cos(radians);
     auto sinValue=std::sin(radians);
-    std::vector<float> rotationMatrix={1,0,0,0,0,1,0,0,0,0,cosValue,-sinValue,0,0,
-                                       sinValue,cosValue};
+    std::vector<float> rotationMatrix={1,0,0,0,0,1,0,0,0,0,cosValue,-sinValue,0,0,sinValue,cosValue};
     return mulMatrixVec(rotationMatrix,point);
 }
 
-glm::vec4 mulMatrixVec(std::vector<float> &matrix,glm::vec4 vec){
+glm::vec4 mulMatrixVec(std::vector<float> &matrix,glm::vec4 &vec){
     glm::vec4 res;
     for (int i=0;i<4;i++){
         float t=0;
